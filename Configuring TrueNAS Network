@@ -1,0 +1,13 @@
+#Configuring TrueNAS Network
+
+To ensure TrueNAS communicates correctly with your NAT configuration:
+
+Go to TrueNAS Web Interface:
+
+Navigate to Network > Global Configuration to ensure DNS, gateway, and IP addresses are correctly set.
+Set Static IP:
+
+Assign a static IP to TrueNAS under Network > Interfaces (e.g., 192.168.1.50).
+Test Connectivity:
+
+Ensure TrueNAS can access the internet and the outside world through your NAT firewall by pinging external resources (use the shell to run ping 8.8.8.8).

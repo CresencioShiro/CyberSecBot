@@ -1,0 +1,46 @@
+#NAT Setup Using pfSense with TrueNAS
+
+If you're using pfSense (an open-source firewall) to provide NAT functionality for your TrueNAS system, here's a basic configuration approach.
+
+Set Up pfSense: Ensure pfSense is installed and configured as your firewall/router. It will manage NAT between your internal network (TrueNAS and other devices) and the external internet.
+
+Assign IP Addresses:
+
+TrueNAS should have a static private IP address (e.g., 192.168.1.50).
+Ensure that pfSense provides NAT for traffic from the TrueNAS IP.
+Sample pfSense NAT Setup:
+Here’s a quick step-by-step for setting up NAT in pfSense for TrueNAS:
+
+Log in to pfSense:
+
+Navigate to your pfSense web interface (https://192.168.1.1 or your configured address).
+Go to Firewall > NAT:
+
+Under the "Firewall" menu, click "NAT" and go to the "Port Forward" tab.
+Add a New Port Forward Rule:
+
+Interface: WAN (External interface).
+Protocol: TCP/UDP (depending on your service, e.g., SSH, HTTP, SMB).
+Destination Address: The WAN IP (external IP or interface address).
+Destination Port Range: Ports used for TrueNAS services (e.g., port 22 for SSH, 445 for SMB).
+Redirect Target IP: The private IP of your TrueNAS box (e.g., 192.168.1.50).
+Redirect Target Port: The corresponding port on your TrueNAS system.
+Description: Label the rule (e.g., TrueNAS SSH).
+Save the Configuration:
+
+Click Save and then Apply Changes.
+Test the NAT:
+
+Verify if NAT is working by trying to access your TrueNAS services externally through the forwarded port.
+Example of Port Forwarding for SMB/SSH:
+TrueNAS IP: 192.168.1.50
+External WAN IP: 203.0.113.1
+Service: SSH on port 22, SMB on port 445.
+
+SHELL
+Destination: 203.0.113.1:22 → Redirect to: 192.168.1.50:22
+Destination: 203.0.113.1:445 → Redirect to: 192.168.1.50:445
+
+
+
+
